@@ -10,19 +10,80 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Student {
-  id           String   @id @default(uuid())
-  studentId    String
-  firstName    String
-  lastName     String
-  middleName   String
-  profileImage String
-  email        String
-  contactNo    String
-  gender       String
-  bloodGroup   String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+model User {
+  id               String            @id @default(uuid())
+  name             String
+  email            String
+  password         String
+  role             UserRole
+  contactNo        String
+  address          String
+  profileImage     String
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  reviewAndRatings ReviewAndRating[]
+  orders           Order[]
 
-  @@map("students")
+  @@map("users")
+}
+
+enum UserRole {
+  admin
+  customer
+}
+
+model Category {
+  id        String   @id @default(uuid())
+  title     String
+  books     Book[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("categories")
+}
+
+model Book {
+  id               String            @id @default(uuid())
+  title            String
+  author           String
+  price            Float
+  genre            String
+  publicationDate  DateTime
+  categoryId       String
+  category         Category          @relation(fields: [categoryId], references: [id])
+  reviewAndRatings ReviewAndRating[]
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+
+  @@map("books")
+}
+
+model ReviewAndRating {
+  id        String   @id @default(uuid())
+  review    String
+  rating    String
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  bookId    String
+  book      Book     @relation(fields: [bookId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("review_and_ratings")
+}
+
+model Order {
+  id           String      @id @default(uuid())
+  userId       String
+  user         User        @relation(fields: [userId], references: [id])
+  orderedBooks Json
+  status       OrderStatus @default(pending)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+}
+
+enum OrderStatus {
+  pending
+  shipped
+  delivered
 }
