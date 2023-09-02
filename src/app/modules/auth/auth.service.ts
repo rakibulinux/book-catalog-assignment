@@ -5,7 +5,11 @@ import config from '../../../config';
 import ApiError from '../../../errors/ApiError';
 import { jwtHelpers } from '../../../helpers/jwtHelpers';
 import prisma from '../../../shared/prisma';
-import { ILoginUser, ILoginUserResponse } from './auth.interface';
+import {
+  ILoginUser,
+  ILoginUserResponse,
+  IRefreshTokenResponse,
+} from './auth.interface';
 import { UserModel } from './auth.utils';
 
 const createAuthUser = async (data: User): Promise<Partial<User>> => {
@@ -62,41 +66,42 @@ const loginUser = async (payload: ILoginUser): Promise<ILoginUserResponse> => {
   return { accessToken, refreshToken };
 };
 
-// const refreshToken = async (token: string): Promise<IRefreshTokenResponse> => {
-//   let verifiedToken = null;
+const refreshToken = async (token: string): Promise<IRefreshTokenResponse> => {
+  let verifiedToken = null;
 
-//   // invalid token
-//   try {
-//     verifiedToken = jwtHelpers.verifyToken(
-//       token,
-//       config.jwt.refresh_secret as Secret,
-//     );
-//     // verifiedToken = jwt.verify(token, config.jwt.refresh_secret as Secret);
-//   } catch (error) {
-//     throw new ApiError(httpStatus.FORBIDDEN, 'Invalid Refresh Token');
-//   }
-//   const { emailId } = verifiedToken;
+  // invalid token
+  try {
+    verifiedToken = jwtHelpers.verifyToken(
+      token,
+      config.jwt.refresh_secret as Secret
+    );
+    // verifiedToken = jwt.verify(token, config.jwt.refresh_secret as Secret);
+  } catch (error) {
+    throw new ApiError(httpStatus.FORBIDDEN, 'Invalid Refresh Token');
+  }
+  const { emailId } = verifiedToken;
 
-//   const isUserExsist = await User.isUserExsist(emailId);
+  const isUserExsist = await UserModel.isUserExist(emailId);
 
-//   //Generate new token
-//   if (!isUserExsist) {
-//     throw new ApiError(httpStatus.NOT_FOUND, 'User does not exsist');
-//   }
+  //Generate new token
+  if (!isUserExsist) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User does not exsist');
+  }
 
-//   const newAccessToken = jwtHelpers.createToken(
-//     {
-//       email: isUserExsist.email,
-//     },
-//     config.jwt.secret as Secret,
-//     config.jwt.expires_in as string,
-//   );
-//   return {
-//     accessToken: newAccessToken,
-//   };
-// };
+  const newAccessToken = jwtHelpers.createToken(
+    {
+      email: isUserExsist.email,
+    },
+    config.jwt.secret as Secret,
+    config.jwt.expires_in as string
+  );
+  return {
+    accessToken: newAccessToken,
+  };
+};
 
 export const AuthUserService = {
   createAuthUser,
   loginUser,
+  refreshToken,
 };

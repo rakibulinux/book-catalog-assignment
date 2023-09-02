@@ -47,9 +47,16 @@ const loginUserZodSchema = z.object({
     }),
   }),
 });
-
+const refreshTokenZodSchema = z.object({
+  cookies: z.object({
+    refreshToken: z.string({
+      required_error: 'ID Is Required',
+    }),
+  }),
+});
 export const UserValidation = {
   updateUserZodSchema,
   createUserZodSchema,
   loginUserZodSchema,
+  refreshTokenZodSchema,
 };
