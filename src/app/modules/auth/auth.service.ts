@@ -10,11 +10,13 @@ import {
   ILoginUserResponse,
   IRefreshTokenResponse,
 } from './auth.interface';
-import { UserModel } from './auth.utils';
+import { UserModel, beforeUserSave } from './auth.utils';
 
 const createAuthUser = async (data: User): Promise<Partial<User>> => {
+  await beforeUserSave(data);
+  // console.log(afterHash);
   const result = await prisma.user.create({
-    data,
+    data, // Ensure the correct type here,
     select: {
       id: true,
       name: true,
@@ -26,6 +28,7 @@ const createAuthUser = async (data: User): Promise<Partial<User>> => {
       profileImg: true,
     },
   });
+  console.log(result);
   return result;
 };
 
