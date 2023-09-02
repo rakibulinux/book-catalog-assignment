@@ -3,22 +3,16 @@ import { ENUM_USER_ROLE } from '../../../enums/user';
 import auth from '../../middlewares/auth';
 import validateRequest from '../../middlewares/validateRequest';
 import { StudentController } from './user.controller';
-import { StudentValidation } from './user.validation';
+import { UserValidation } from './user.validation';
 
 const router = express.Router();
 
 router.post(
-  '/create-student',
-  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
-  validateRequest(StudentValidation.createStudentZodSchema),
+  '/signup',
+  validateRequest(UserValidation.createUserZodSchema),
   StudentController.insertIntoDB
 );
 
-router.patch(
-  '/:id',
-  validateRequest(StudentValidation.updateStudentZodSchema),
-  StudentController.updateSingleStudent
-);
 router.get('/:id', StudentController.getSingleStudent);
 router.delete(
   '/:id',

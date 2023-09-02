@@ -1,13 +1,13 @@
 import express from 'express';
-import { StudentRouter } from '../modules/user/user.route';
+import { AuthRouters } from '../modules/auth/auth.route';
 
 const router = express.Router();
 
 const moduleRoutes = [
   // ... routes
   {
-    path: '/users',
-    route: StudentRouter,
+    path: '/auth',
+    route: AuthRouters,
   },
 ];
 

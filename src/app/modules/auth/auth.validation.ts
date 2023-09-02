@@ -20,7 +20,7 @@ const createUserZodSchema = z.object({
     address: z.string({
       required_error: 'Address is required',
     }),
-    profileImage: z.string({
+    profileImg: z.string({
       required_error: 'Profile image is required',
     }),
   }),
@@ -33,11 +33,23 @@ const updateUserZodSchema = z.object({
     role: z.string().optional(),
     contactNo: z.string().optional(),
     address: z.string().optional(),
-    profileImage: z.string().optional(),
+    profileImg: z.string().optional(),
+  }),
+});
+
+const loginUserZodSchema = z.object({
+  body: z.object({
+    email: z.string({
+      required_error: 'Email is Required',
+    }),
+    password: z.string({
+      required_error: 'Password is Required',
+    }),
   }),
 });
 
 export const UserValidation = {
   updateUserZodSchema,
   createUserZodSchema,
+  loginUserZodSchema,
 };

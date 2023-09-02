@@ -18,7 +18,7 @@ model User {
   role             UserRole
   contactNo        String
   address          String
-  profileImage     String
+  profileImg       String
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
   reviewAndRatings ReviewAndRating[]
