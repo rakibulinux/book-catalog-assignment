@@ -45,6 +45,20 @@ const getSingleBook = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const getCategoryBook = catchAsync(async (req: Request, res: Response) => {
+  const result = await BookService.getCategoryBook(req.params.id);
+
+  sendResponse<Book[]>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: `${
+      result
+        ? 'Get A Book By Category Successfully Retrive!'
+        : `No Book Find For This ID: ${req.params.id}`
+    }`,
+    data: result,
+  });
+});
 const updateSingleBook = catchAsync(async (req: Request, res: Response) => {
   const result = await BookService.updateSingleBook(req.params.id, req.body);
   sendResponse<Book>(res, {
@@ -69,6 +83,7 @@ export const BookController = {
   createBook,
   getAllBooks,
   getSingleBook,
+  getCategoryBook,
   updateSingleBook,
   deleteSingleBook,
 };

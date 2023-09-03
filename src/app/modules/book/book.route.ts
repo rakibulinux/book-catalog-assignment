@@ -18,6 +18,7 @@ router.delete(
   auth(ENUM_USER_ROLE.ADMIN),
   BookController.deleteSingleBook
 );
+router.get('/:id/category', BookController.getCategoryBook);
 router.get('/:id', BookController.getSingleBook);
 router.get('/', BookController.getAllBooks);
 router.post(
