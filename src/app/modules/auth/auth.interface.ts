@@ -1,5 +1,6 @@
 export type ILoginUser = {
   email: string;
+  role: string;
   password: string;
 };
 

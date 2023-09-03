@@ -23,7 +23,7 @@ const auth =
 
       // role diye guard korar jnno
       if (requiredRoles.length && !requiredRoles.includes(verifiedUser.role)) {
-        throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden');
+        throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden Role');
       }
       next();
     } catch (error) {

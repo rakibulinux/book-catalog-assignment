@@ -34,7 +34,7 @@ const createAuthUser = async (data: User): Promise<Partial<User>> => {
 
 const loginUser = async (payload: ILoginUser): Promise<ILoginUserResponse> => {
   const { email, password } = payload;
-  console.log(payload);
+
   const isUserExsist = await prisma.user.findFirst({
     where: {
       email,
@@ -52,11 +52,11 @@ const loginUser = async (payload: ILoginUser): Promise<ILoginUserResponse> => {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Password is incorrect');
   }
 
-  const { id, email: emailId } = isUserExsist;
+  const { id, email: emailId, role } = isUserExsist;
 
   //Token
   const accessToken = jwtHelpers.createToken(
-    { id, emailId, password },
+    { id, emailId, role, password },
     config.jwt.secret as Secret,
     config.jwt.expires_in as string
   );
@@ -65,7 +65,11 @@ const loginUser = async (payload: ILoginUser): Promise<ILoginUserResponse> => {
     config.jwt.refresh_secret as Secret,
     config.jwt.refresh_expires_in as string
   );
-
+  const decodedToken = jwtHelpers.verifyToken(
+    accessToken,
+    config.jwt.secret as Secret
+  );
+  console.log('decoded Token', decodedToken);
   return { accessToken, refreshToken };
 };
 

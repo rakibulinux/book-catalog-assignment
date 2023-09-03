@@ -9,6 +9,7 @@
     "lint:fix": "eslint . --fix",
     "start": "node dist/server.js",
     "build": "tsc",
+    "postinstall": "prisma generate",
     "prettier:check": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
     "prettier:fix": "prettier --write .",
     "lint-prettier": "pnpm lint:check && pnpm prettier:check",

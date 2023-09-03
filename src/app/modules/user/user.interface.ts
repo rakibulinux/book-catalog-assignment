@@ -1,21 +1,34 @@
-export type IStudentFilterRequest = {
+import { UserRole } from '@prisma/client';
+
+export type IUserFilterRequest = {
   searchTerm?: string | undefined;
-  studentId?: string | undefined;
+  userId?: string | undefined;
   email?: string | undefined;
   contactNo?: string | undefined;
   gender?: string | undefined;
   bloodGroup?: string | undefined;
 };
 
-export type IStudentMyCoursesRequest = {
+export type IUserResponse = {
+  id: string;
+  name: string;
+  email: string;
+  role: UserRole;
+  contactNo: string;
+  address: string;
+  profileImg: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+export type IUserMyCoursesRequest = {
   courseId?: string | undefined;
 };
 
-export type IStudentMyCourseSchedulesRequest = {
+export type IUserMyCourseSchedulesRequest = {
   courseId?: string | undefined;
 };
 
-export type StudentCreatedEvent = {
+export type UserCreatedEvent = {
   id: string;
   name: {
     firstName: string;
@@ -30,7 +43,7 @@ export type StudentCreatedEvent = {
   profileImage: string;
 };
 
-export type StudentUpdatedEvent = {
+export type UserUpdatedEvent = {
   id: string;
   name: {
     firstName: string;

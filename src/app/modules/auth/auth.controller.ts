@@ -12,7 +12,7 @@ const createAuthUser = catchAsync(async (req: Request, res: Response) => {
   sendResponse<Partial<User>>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'User Created Successfully!',
+    message: `${result?.role} Created Successfully!`,
     data: result,
   });
 });
@@ -20,7 +20,7 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
   const { ...loginData } = req.body;
   const result = await AuthUserService.loginUser(loginData);
   const { refreshToken, ...others } = result;
-  console.log(others);
+  // console.log(others);
   const cookieOption = {
     secure: config.env === 'production',
     httpOnly: true,
@@ -52,7 +52,7 @@ const refreshToken = catchAsync(async (req: Request, res: Response) => {
     sendResponse<IRefreshTokenResponse>(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: 'New access token generated successfully !',
+      message: 'New access token generated successfully!',
       data: result,
     });
 });

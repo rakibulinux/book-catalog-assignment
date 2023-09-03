@@ -1,22 +1,22 @@
-import { Prisma, Student } from '@prisma/client';
+import { Prisma, User } from '@prisma/client';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
-import { studentSearchableFields } from './user.constant';
-import { IStudentFilterRequest } from './user.interface';
+import { userSearchableFields } from './user.constant';
+import { IUserFilterRequest, IUserResponse } from './user.interface';
 
-const insertIntoDB = async (data: Student): Promise<Student> => {
-  const result = await prisma.student.create({
-    data,
-  });
-  return result;
-};
+// const createUser = async (data: User): Promise<User> => {
+//   const result = await prisma.User.create({
+//     data,
+//   });
+//   return result;
+// };
 
-const getAllStudents = async (
-  filters: IStudentFilterRequest,
+const getAllUsers = async (
+  filters: IUserFilterRequest,
   pagination: IPaginationOptions
-): Promise<IGenericResponse<Student[]>> => {
+): Promise<IGenericResponse<IUserResponse[]>> => {
   const { searchTerm, ...filtersData } = filters;
   const { page, limit, skip, sortBy, sortOrder } =
     paginationHelpers.calculatePagination(pagination);
@@ -24,7 +24,7 @@ const getAllStudents = async (
   // Search needs $or for searching in specified fields
   if (searchTerm) {
     andConditions.push({
-      OR: studentSearchableFields.map(field => ({
+      OR: userSearchableFields.map(field => ({
         [field]: {
           contains: searchTerm,
           mode: 'insensitive',
@@ -32,7 +32,7 @@ const getAllStudents = async (
       })),
     });
   }
-  const whereConditions: Prisma.StudentWhereInput =
+  const whereConditions: Prisma.UserWhereInput =
     andConditions.length > 0 ? { AND: andConditions } : {};
   if (Object.keys(filtersData).length) {
     andConditions.push({
@@ -47,14 +47,26 @@ const getAllStudents = async (
     sortConditions[sortBy] = sortOrder;
   }
 
-  const result = await prisma.student.findMany({
+  const result = await prisma.user.findMany({
     where: whereConditions,
     skip,
     take: limit,
     orderBy: sortConditions,
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      password: false,
+      role: true,
+      contactNo: true,
+      address: true,
+      profileImg: true,
+      createdAt: true,
+      updatedAt: true,
+    },
   });
 
-  const total = await prisma.student.count();
+  const total = await prisma.user.count();
   return {
     meta: {
       total,
@@ -65,39 +77,71 @@ const getAllStudents = async (
   };
 };
 
-const getSingleStudent = async (id: string) => {
-  const result = await prisma.student.findUnique({
+const getSingleUser = async (id: string) => {
+  const result = await prisma.user.findUnique({
     where: {
       id,
+    },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      password: false,
+      role: true,
+      contactNo: true,
+      address: true,
+      profileImg: true,
     },
   });
   return result;
 };
-const updateSingleStudent = async (
+const updateSingleUser = async (
   id: string,
-  data: Partial<Student>
-): Promise<Student> => {
-  const result = await prisma.student.update({
+  data: Partial<User>
+): Promise<Partial<IUserResponse>> => {
+  const result = await prisma.user.update({
     where: {
       id,
     },
     data,
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      password: false,
+      role: true,
+      contactNo: true,
+      address: true,
+      profileImg: true,
+    },
   });
   return result;
 };
-const deleteSingleStudent = async (id: string): Promise<Student> => {
-  const result = await prisma.student.delete({
+const deleteSingleUser = async (
+  id: string
+): Promise<Partial<IUserResponse>> => {
+  const result = await prisma.user.delete({
     where: {
       id,
+    },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      password: false,
+      role: true,
+      contactNo: true,
+      address: true,
+      profileImg: true,
     },
   });
   return result;
 };
 
-export const StudentService = {
-  insertIntoDB,
-  getAllStudents,
-  getSingleStudent,
-  updateSingleStudent,
-  deleteSingleStudent,
+export const UserService = {
+  // createUser,
+  getAllUsers,
+  getSingleUser,
+  updateSingleUser,
+  deleteSingleUser,
 };

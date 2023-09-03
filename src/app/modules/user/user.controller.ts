@@ -1,71 +1,71 @@
-import { Student } from '@prisma/client';
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import { paginationFields } from '../../../constants/pagination';
 import catchAsync from '../../../shared/catchAsync';
 import pick from '../../../shared/pick';
 import sendResponse from '../../../shared/sendResponse';
-import { studentFilterableFields } from './user.constant';
-import { StudentService } from './user.service';
+import { userFilterableFields } from './user.constant';
+import { IUserResponse } from './user.interface';
+import { UserService } from './user.service';
 
-const insertIntoDB = catchAsync(async (req: Request, res: Response) => {
-  const result = await StudentService.insertIntoDB(req.body);
-  sendResponse<Student>(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'Students Created!',
-    data: result,
-  });
-});
-const getAllStudent = catchAsync(async (req: Request, res: Response) => {
-  const filters = pick(req.query, studentFilterableFields);
+// const createUser = catchAsync(async (req: Request, res: Response) => {
+//   const result = await UserService.createUser(req.body);
+//   sendResponse<User>(res, {
+//     statusCode: httpStatus.OK,
+//     success: true,
+//     message: 'Users Created!',
+//     data: result,
+//   });
+// });
+const getAllUser = catchAsync(async (req: Request, res: Response) => {
+  const filters = pick(req.query, userFilterableFields);
   const pagination = pick(req.query, paginationFields);
-  const result = await StudentService.getAllStudents(filters, pagination);
-  sendResponse<Student[]>(res, {
+  const result = await UserService.getAllUsers(filters, pagination);
+  sendResponse<Partial<IUserResponse[]>>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Get All Studentss Successfully',
+    message: 'Get All Users Successfully',
     meta: result.meta,
     data: result.data,
   });
 });
-const getSingleStudent = catchAsync(async (req: Request, res: Response) => {
+const getSingleUser = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
-  const result = await StudentService.getSingleStudent(id);
-  sendResponse<Student>(res, {
+  const result = await UserService.getSingleUser(id);
+  sendResponse<Partial<IUserResponse>>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Get Single Students Successfully',
+    message: 'Get Single User Successfully',
 
     data: result,
   });
 });
-const updateSingleStudent = catchAsync(async (req: Request, res: Response) => {
+const updateSingleUser = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
   const body = req.body;
-  const result = await StudentService.updateSingleStudent(id, body);
-  sendResponse<Student>(res, {
+  const result = await UserService.updateSingleUser(id, body);
+  sendResponse<Partial<IUserResponse>>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Students Updated Successfully!',
+    message: 'User Updated Successfully!',
     data: result,
   });
 });
-const deleteSingleStudent = catchAsync(async (req: Request, res: Response) => {
+const deleteSingleUser = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
-  const result = await StudentService.deleteSingleStudent(id);
-  sendResponse<Student>(res, {
+  const result = await UserService.deleteSingleUser(id);
+  sendResponse<Partial<IUserResponse>>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Students Deleted Successfully!',
+    message: 'User Deleted Successfully!',
     data: result,
   });
 });
 
-export const StudentController = {
-  insertIntoDB,
-  getAllStudent,
-  getSingleStudent,
-  updateSingleStudent,
-  deleteSingleStudent,
+export const UserController = {
+  // createUser,
+  getAllUser,
+  getSingleUser,
+  updateSingleUser,
+  deleteSingleUser,
 };

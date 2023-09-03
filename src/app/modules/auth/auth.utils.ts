@@ -13,6 +13,7 @@ export const UserModel = {
       select: {
         id: true,
         email: true,
+        role: true,
         password: true,
       },
     });
@@ -27,8 +28,7 @@ export const UserModel = {
     try {
       return await bcrypt.compare(givenPassword, savedPassword);
     } catch (error) {
-      // Handle bcrypt errors (e.g., invalid savedPasswordHash)
-      return false; // You can choose how to handle errors
+      return false;
     }
     // return givenPassword === savedPassword;
   },
@@ -39,7 +39,6 @@ export const beforeUserSave = async (user: User): Promise<void> => {
     const saltRounds = Number(config.bcrypt_salt_rounds);
     const hashedPassword = await bcrypt.hash(user.password, saltRounds);
     user.password = hashedPassword;
-    //   return user;
   }
 };
 

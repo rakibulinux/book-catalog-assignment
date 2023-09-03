@@ -17,7 +17,9 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/v1', routes);
 
-
+app.get('/', (req: Request, res: Response) => {
+  res.json(`Server is Running On Port: ${process.env.PORT}`);
+});
 //global error handler
 app.use(globalErrorHandler);
 
