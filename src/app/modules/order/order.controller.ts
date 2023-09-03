@@ -69,18 +69,28 @@ const getAllOrders = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getSingleOrder = catchAsync(async (req: Request, res: Response) => {
-  const result = await OrderService.getSingleOrder(req.params.id);
-
-  sendResponse<Order>(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: `${
-      result
-        ? 'Get A Single Order Successfully!'
-        : `No Order Find For This ID: ${req.params.id}`
-    }`,
-    data: result,
-  });
+  const accessToken: string | undefined = req.headers.authorization;
+  if (accessToken) {
+    const decodedToken = jwtHelpers.verifyToken(
+      accessToken,
+      config.jwt.secret as Secret
+    );
+    const result = await OrderService.getSingleOrder(
+      req.params.id,
+      decodedToken
+    );
+    // console.log(result);
+    sendResponse<Order>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: `${
+        result
+          ? 'Get A Single Order Successfully!'
+          : `No Order Find For This ID: ${req.params.id}`
+      }`,
+      data: result,
+    });
+  }
 });
 // const getCategoryOrder = catchAsync(async (req: Request, res: Response) => {
 //   const result = await OrderService.getCategoryOrder(req.params.id);

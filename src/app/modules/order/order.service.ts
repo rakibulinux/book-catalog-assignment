@@ -88,16 +88,22 @@ const getAllOrders = async (
   };
 };
 
-const getSingleOrder = async (id: string) => {
+const getSingleOrder = async (id: string, decodedToken: JwtPayload) => {
+  // console.log('decodedToken.UserId', decodedToken);
   const result = await prisma.order.findUnique({
     where: {
       id,
     },
-    include: {
-      user: true,
-    },
   });
-  return result;
+  console.log(result?.userId);
+  console.log('decodedToken.role', decodedToken.userId);
+  //user.userId === decodedToken.userId || decodedToken.role === 'admin'
+  if (
+    (result && result.userId === decodedToken.userId) ||
+    decodedToken.role === 'admin'
+  ) {
+    return result;
+  }
 };
 
 // const updateSingleOrder = async (
