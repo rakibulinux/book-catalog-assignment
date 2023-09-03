@@ -89,21 +89,21 @@ That's it! You have successfully set up the Book Catalog Service Starter project
 
 - https://book-catalog-assignment.vercel.app/api/v1/categories/create-category (POST)
 - https://book-catalog-assignment.vercel.app/api/v1/categories (GET)
-- https://book-catalog-assignment.vercel.app/api/v1/categories/6177a5b87d32123f08d2f5d4 (Single GET) Include an id that is saved in your database
-- https://book-catalog-assignment.vercel.app/api/v1/categories/6177a5b87d32123f08d2f5d4 (PATCH)
-- https://book-catalog-assignment.vercel.app/api/v1/categories/6177a5b87d32123f08d2f5d4 (DELETE) Include an id that is saved in your database
+- https://book-catalog-assignment.vercel.app/api/v1/categories/446979b2-45ae-42d7-987b-4add76885b8d (Single GET) Include an id that is saved in your database
+- https://book-catalog-assignment.vercel.app/api/v1/categories/446979b2-45ae-42d7-987b-4add76885b8d (PATCH)
+- https://book-catalog-assignment.vercel.app/api/v1/categories/446979b2-45ae-42d7-987b-4add76885b8d (DELETE) Include an id that is saved in your database
 
 ### Books
 
 - https://book-catalog-assignment.vercel.app/api/v1/books/create-book (POST)
 - https://book-catalog-assignment.vercel.app/api/v1/books (GET)
-- https://book-catalog-assignment.vercel.app/api/v1/books/:categoryId/category (GET)
-- https://book-catalog-assignment.vercel.app/api/v1/books/:id (GET)
-- https://book-catalog-assignment.vercel.app/api/v1/books/:id (PATCH)
-- https://book-catalog-assignment.vercel.app/api/v1/books/:id (DELETE)
+- https://book-catalog-assignment.vercel.app/api/v1/books/446979b2-45ae-42d7-987b-4add76885b8d/category (GET)
+- https://book-catalog-assignment.vercel.app/api/v1/books/a0fc08be-2c44-4d22-8e6a-2c1646953a08 (GET)
+- https://book-catalog-assignment.vercel.app/api/v1/books/a0fc08be-2c44-4d22-8e6a-2c1646953a08 (PATCH)
+- https://book-catalog-assignment.vercel.app/api/v1/books/a0fc08be-2c44-4d22-8e6a-2c1646953a08 (DELETE)
 
 ### Orders
 
 - https://book-catalog-assignment.vercel.app/api/v1/orders/create-order (POST)
 - https://book-catalog-assignment.vercel.app/api/v1/orders (GET)
-- https://book-catalog-assignment.vercel.app/api/v1/orders/:orderId (GET)
+- https://book-catalog-assignment.vercel.app/api/v1/orders/2f8e75ca-9768-42e0-bf76-8a6d760c5c8c (GET)
