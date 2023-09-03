@@ -14,8 +14,7 @@ const createBook = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: `Book Created successufully!
-      `,
+    message: `Book Created successufully!`,
     data: result,
   });
 });

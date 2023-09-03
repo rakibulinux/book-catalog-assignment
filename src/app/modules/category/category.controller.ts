@@ -14,8 +14,7 @@ const createCategory = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: `category Created successufully!
-      `,
+    message: `Category Created successufully!`,
     data: result,
   });
 });
@@ -27,7 +26,7 @@ const getAllCategorys = catchAsync(async (req: Request, res: Response) => {
   sendResponse<Category[]>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Get All category Successfully!',
+    message: 'Get All Category Successfully!',
     meta: result.meta,
     data: result.data,
   });
@@ -40,8 +39,8 @@ const getSingleCategory = catchAsync(async (req: Request, res: Response) => {
     success: true,
     message: `${
       result
-        ? 'Get A Single category Successfully!'
-        : `No category Find For This ID: ${req.params.id}`
+        ? 'Get A Single Category Successfully!'
+        : `No Category Find For This ID: ${req.params.id}`
     }`,
     data: result,
   });
@@ -54,7 +53,7 @@ const updateSingleCategory = catchAsync(async (req: Request, res: Response) => {
   sendResponse<Category>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Update A Single category Successfully!',
+    message: 'Update A Single Category Successfully!',
     data: result,
   });
 });
@@ -64,7 +63,7 @@ const deleteSingleCategory = catchAsync(async (req: Request, res: Response) => {
   sendResponse<Category>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Delete A Single category Successfully!',
+    message: 'Delete A Single Category Successfully!',
     data: result,
   });
 });

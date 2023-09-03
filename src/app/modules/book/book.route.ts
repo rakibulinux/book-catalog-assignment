@@ -9,14 +9,19 @@ const router = express.Router();
 
 router.patch(
   '/:id',
+  auth(ENUM_USER_ROLE.ADMIN),
   validateRequest(BookValidation.updateBookZodSchema),
   BookController.updateSingleBook
 );
-router.delete('/:id', BookController.deleteSingleBook);
+router.delete(
+  '/:id',
+  auth(ENUM_USER_ROLE.ADMIN),
+  BookController.deleteSingleBook
+);
 router.get('/:id', BookController.getSingleBook);
 router.get('/', BookController.getAllBooks);
 router.post(
-  '/',
+  '/create-book',
   validateRequest(BookValidation.createBookZodSchema),
   auth(ENUM_USER_ROLE.ADMIN),
   BookController.createBook

@@ -4,7 +4,15 @@ import { IGenericErrorMessage } from '../interfaces/error';
 const handleClientError = (error: PrismaClientKnownRequestError) => {
   let errors: IGenericErrorMessage[] = [];
   let message = '';
-
+  if (error.stack?.includes('invocation:\n\n\nUnique constraint')) {
+    message = 'Unique constraint can not be duplicated';
+    errors = [
+      {
+        path: '',
+        message,
+      },
+    ];
+  }
   if (error.code === 'P2025') {
     message = (error.meta?.cause as string) || 'Record not found';
     errors = [

@@ -24,4 +24,4 @@ router.delete(
 
 router.get('/', auth(ENUM_USER_ROLE.ADMIN), UserController.getAllUser);
 
-export const UserRouter = router;
+export const UserRoute = router;
