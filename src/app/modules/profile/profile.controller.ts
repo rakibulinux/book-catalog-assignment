@@ -16,10 +16,8 @@ const getSingleProfile = catchAsync(async (req: Request, res: Response) => {
       accessToken,
       config.jwt.secret as Secret
     );
-    const result = await ProfileService.getSingleProfile(
-      req.params.id,
-      decodedToken
-    );
+    console.log(decodedToken);
+    const result = await ProfileService.getSingleProfile(decodedToken);
     // console.log(result);
     sendResponse<User>(res, {
       statusCode: httpStatus.OK,

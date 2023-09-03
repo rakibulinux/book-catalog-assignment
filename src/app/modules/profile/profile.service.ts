@@ -2,16 +2,14 @@ import prisma from '../../../shared/prisma';
 
 import { JwtPayload } from 'jsonwebtoken';
 
-const getSingleProfile = async (id: string, decodedToken: JwtPayload) => {
+const getSingleProfile = async (decodedToken: JwtPayload) => {
   const result = await prisma.user.findUnique({
     where: {
-      id,
+      id: decodedToken.userId,
     },
   });
-  if (
-    (result && result.id === decodedToken.userId) ||
-    decodedToken.role === 'admin'
-  ) {
+  console.log(decodedToken);
+  if (result && result.id === decodedToken.userId) {
     return result;
   }
 };

@@ -80,9 +80,9 @@ That's it! You have successfully set up the Book Catalog Service Starter project
 
 - https://book-catalog-assignment.vercel.app/api/v1/auth/signup (POST)
 - https://book-catalog-assignment.vercel.app/api/v1/users (GET)
-- https://book-catalog-assignment.vercel.app/api/v1/users/6177a5b87d32123f08d2f5d4 (Single GET) Include an id that is saved in your database
-- https://book-catalog-assignment.vercel.app/api/v1/users/6177a5b87d32123f08d2f5d4 (PATCH)
-- https://book-catalog-assignment.vercel.app/api/v1/users/6177a5b87d32123f08d2f5d4 (DELETE) Include an id that is saved in your database
+- https://book-catalog-assignment.vercel.app/api/v1/users/36931254-7f0e-4f15-b4d3-08efb2090335 (Single GET) Include an id that is saved in your database
+- https://book-catalog-assignment.vercel.app/api/v1/users/36931254-7f0e-4f15-b4d3-08efb2090335 (PATCH)
+- https://book-catalog-assignment.vercel.app/api/v1/users/36931254-7f0e-4f15-b4d3-08efb2090335 (DELETE) Include an id that is saved in your database
 - https://book-catalog-assignment.vercel.app/api/v1/profile (GET)
 
 ### Category
