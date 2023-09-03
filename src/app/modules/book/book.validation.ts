@@ -5,20 +5,31 @@ const createBookZodSchema = z.object({
     title: z.string({
       required_error: 'Title is Required',
     }),
-    maxCapacity: z.number({
-      required_error: 'Title is Required',
+    author: z.string({
+      required_error: 'Author is Required',
     }),
-    offeredCourseId: z.string({
-      required_error: 'Offered Course Id is Required',
+    price: z.number({
+      required_error: 'Price is Required',
+    }),
+    genre: z.string({
+      required_error: 'Genre is Required',
+    }),
+    publicationDate: z.string({
+      required_error: 'Publication Date is Required',
+    }),
+    categoryId: z.string({
+      required_error: 'Category Id is Required',
     }),
   }),
 });
 const updateBookZodSchema = z.object({
   body: z.object({
     title: z.string().optional(),
-    maxCapacity: z.number().optional(),
-    semesterRegistrationId: z.string().optional(),
-    offeredCourseId: z.string().optional(),
+    author: z.string().optional(),
+    price: z.number().optional(),
+    genre: z.string().optional(),
+    publicationDate: z.string().optional(),
+    categoryId: z.string().optional(),
   }),
 });
 
