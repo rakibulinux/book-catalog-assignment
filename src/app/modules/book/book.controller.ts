@@ -53,7 +53,7 @@ const getCategoryBook = catchAsync(async (req: Request, res: Response) => {
     success: true,
     message: `${
       result
-        ? 'Get A Book By Category Successfully Retrive!'
+        ? 'Get All Books By Category Successfully Retrive!'
         : `No Book Find For This ID: ${req.params.id}`
     }`,
     data: result,
