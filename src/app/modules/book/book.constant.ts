@@ -1,8 +1,9 @@
-export const bookSearchableFields = ['id', 'courseId'];
+export const bookSearchableFields = ['title', 'author', 'genre'];
 export const bookFilterableFields = [
   'searchTerm',
-  'id',
-  'roomNumber',
-  'floor',
-  'buildingId',
+  'title',
+  'author',
+  'genre',
+  'minPrice',
+  'maxPrice',
 ];

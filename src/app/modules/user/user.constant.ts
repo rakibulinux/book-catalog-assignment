@@ -1,16 +1,8 @@
-export const userSearchableFields = [
-  'id',
-  'email',
-  'contactNo',
-  'name.firstName',
-  'name.middleName',
-  'name.lastName',
-];
+export const userSearchableFields = ['id', 'email', 'contactNo', 'name'];
 export const userFilterableFields = [
   'searchTerm',
   'id',
-  'bloodGroup',
+  'name',
   'email',
   'contactNo',
-  'emergencyContactNo',
 ];

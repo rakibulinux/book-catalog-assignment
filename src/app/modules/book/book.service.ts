@@ -8,23 +8,11 @@ import { bookSearchableFields } from './book.constant';
 import { IBookFilterRequest } from './book.interface';
 
 const createBook = async (data: Book): Promise<Book> => {
-  // const isExsistsBook = await prisma.book.findFirst({
-  //   where: {
-  //     id: data.BookId,
-  //   },
-  // });
-  // if (!isExsistsBook) {
-  //   throw new ApiError(
-  //     httpStatus.BAD_REQUEST,
-  //     'Book does not exsist'
-  //   );
-  // }
-  // data.semesterRegistrationId = isExsistsBook.semesterRegistrationId;
   const result = await prisma.book.create({
     data,
     include: {
-      reviewAndRatings: true,
       category: true,
+      reviewAndRatings: true,
     },
   });
   return result;
@@ -34,10 +22,27 @@ const getAllBooks = async (
   filters: IBookFilterRequest,
   pagination: IPaginationOptions
 ): Promise<IGenericResponse<Book[]>> => {
-  const { searchTerm, ...filtersData } = filters;
+  const { searchTerm, minPrice, maxPrice, ...filtersData } = filters;
+  console.log(filters);
   const { page, limit, skip, sortBy, sortOrder } =
     paginationHelpers.calculatePagination(pagination);
   const andConditions = [];
+  // Add conditions for minPrice and maxPrice
+  if (minPrice !== undefined) {
+    andConditions.push({
+      price: {
+        gte: parseFloat(minPrice),
+      },
+    });
+  }
+
+  if (maxPrice !== undefined) {
+    andConditions.push({
+      price: {
+        lte: parseFloat(maxPrice),
+      },
+    });
+  }
   // Search needs $or for searching in specified fields
   if (searchTerm) {
     andConditions.push({

@@ -6,13 +6,6 @@ import prisma from '../../../shared/prisma';
 import { userSearchableFields } from './user.constant';
 import { IUserFilterRequest, IUserResponse } from './user.interface';
 
-// const createUser = async (data: User): Promise<User> => {
-//   const result = await prisma.User.create({
-//     data,
-//   });
-//   return result;
-// };
-
 const getAllUsers = async (
   filters: IUserFilterRequest,
   pagination: IPaginationOptions

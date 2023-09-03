@@ -22,7 +22,7 @@ router.delete(
 router.get('/:id', CategoryController.getSingleCategory);
 router.get('/', CategoryController.getAllCategorys);
 router.post(
-  '/',
+  '/create-category',
   auth(ENUM_USER_ROLE.ADMIN),
   validateRequest(CategoryValidation.createCategoryZodSchema),
   CategoryController.createCategory

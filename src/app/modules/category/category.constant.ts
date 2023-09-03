@@ -1,8 +1,2 @@
-export const categorySearchableFields = ['id', 'courseId'];
-export const categoryFilterableFields = [
-  'searchTerm',
-  'id',
-  'roomNumber',
-  'floor',
-  'buildingId',
-];
+export const categorySearchableFields = ['title'];
+export const categoryFilterableFields = ['searchTerm', 'title'];
